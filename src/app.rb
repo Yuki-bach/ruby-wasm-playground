@@ -4,7 +4,6 @@ require "js"
 document = JS.global[:document]
 app = document.getElementById("app")
 loading = document.getElementById("loading")
-editor = document.getElementById("editor")
 output = document.getElementById("output")
 run_btn = document.getElementById("run-btn")
 version_el = document.getElementById("version")
@@ -34,9 +33,14 @@ class OutputCapture
   end
 end
 
+# CodeMirror エディタからコードを取得
+get_editor_code = -> {
+  JS.global[:__editorView][:state][:doc].toString().to_s
+}
+
 # コード実行
 run_code = -> {
-  code = editor[:value].to_s
+  code = get_editor_code.call
   output[:innerHTML] = ""
 
   capture = OutputCapture.new
@@ -90,23 +94,10 @@ run_code = -> {
 # ボタンクリック
 run_btn.addEventListener("click") { run_code.call }
 
-# Ctrl+Enter でも実行
-editor.addEventListener("keydown") do |event|
+# Ctrl+Enter でも実行（CodeMirror の keymap と競合しないよう document レベルで監視）
+document.addEventListener("keydown") do |event|
   if (event[:ctrlKey].to_s == "true" || event[:metaKey].to_s == "true") && event[:key].to_s == "Enter"
     event.preventDefault
     run_code.call
-  end
-end
-
-# タブキーでインデント
-editor.addEventListener("keydown") do |event|
-  if event[:key].to_s == "Tab"
-    event.preventDefault
-    start_pos = event[:target][:selectionStart].to_i
-    end_pos = event[:target][:selectionEnd].to_i
-    value = editor[:value].to_s
-    editor[:value] = value[0...start_pos] + "  " + value[end_pos..]
-    new_pos = start_pos + 2
-    editor.setSelectionRange(new_pos, new_pos)
   end
 end
