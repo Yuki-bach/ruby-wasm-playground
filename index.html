@@ -1,9 +1,61 @@
-<html>
-  <script src="https://cdn.jsdelivr.net/npm/@ruby/4.0-wasm-wasi@2.8.1/dist/browser.script.iife.js"></script>
-  <script type="text/ruby">
-    require "js"
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruby WASM Playground</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="loading" id="loading">Ruby WASM を読み込んでいます</div>
 
-    puts RUBY_VERSION # (Printed to the Web browser console)
-    JS.global[:document].write "Hello, world!"
-  </script>
+  <div id="app" style="display:none; flex-direction:column; height:100vh;">
+    <header>
+      <h1>Ruby <span>Playground</span></h1>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span id="version" style="font-size:12px; color:#a6adc8;"></span>
+        <button id="run-btn">Run (Ctrl+Enter)</button>
+      </div>
+    </header>
+    <div class="main">
+      <div class="panel">
+        <div class="panel-header">Editor</div>
+        <textarea id="editor" spellcheck="false">
+# Ruby WASM Playground へようこそ！
+
+puts "Hello, Ruby WASM!"
+puts "Ruby version: #{RUBY_VERSION}"
+puts
+
+# 配列の操作
+fruits = %w[りんご みかん ぶどう バナナ いちご]
+puts "果物リスト:"
+fruits.each_with_index do |fruit, i|
+  puts "  #{i + 1}. #{fruit}"
+end
+puts
+
+# ハッシュ
+person = { name: "太郎", age: 25, lang: "Ruby" }
+person.each do |key, value|
+  puts "#{key}: #{value}"
+end
+puts
+
+# ブロックとイテレータ
+puts "1〜10の偶数: #{(1..10).select(&:even?).join(', ')}"
+puts "合計: #{(1..100).sum}"
+</textarea>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Output</div>
+        <div id="output">
+          <div class="output-line output-info">Run ボタンを押してコードを実行してください</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
 </html>

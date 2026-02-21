@@ -1,0 +1,21 @@
+{
+  "name": "ruby-wasm-playground",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@ruby/4.0-wasm-wasi": "^2.8.1",
+    "@ruby/wasm-wasi": "^2.8.1"
+  }
+}
