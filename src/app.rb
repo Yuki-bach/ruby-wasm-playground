@@ -33,9 +33,9 @@ class OutputCapture
   end
 end
 
-# CodeMirror エディタからコードを取得
+# エディタからコードを取得（JS側のファサード経由）
 get_editor_code = -> {
-  JS.global[:__editorView][:state][:doc].toString().to_s
+  JS.global[:__playground].getCode().to_s
 }
 
 # コード実行

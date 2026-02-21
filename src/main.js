@@ -52,7 +52,9 @@ const view = new EditorView({
   parent: document.getElementById("editor-container"),
 });
 
-window.__editorView = view;
+window.__playground = {
+  getCode: () => view.state.doc.toString(),
+};
 
 async function init() {
   const wasmUrl = new URL(
