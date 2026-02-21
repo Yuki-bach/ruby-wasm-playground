@@ -20,7 +20,18 @@
     <div class="main">
       <div class="panel">
         <div class="panel-header">Editor</div>
-        <textarea id="editor" spellcheck="false">
+        <div id="editor-container"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Output</div>
+        <div id="output">
+          <div class="output-line output-info">Run ボタンを押してコードを実行してください</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/plain" id="editor-initial">
 # Ruby WASM Playground へようこそ！
 
 puts "Hello, Ruby WASM!"
@@ -45,16 +56,7 @@ puts
 # ブロックとイテレータ
 puts "1〜10の偶数: #{(1..10).select(&:even?).join(', ')}"
 puts "合計: #{(1..100).sum}"
-</textarea>
-      </div>
-      <div class="panel">
-        <div class="panel-header">Output</div>
-        <div id="output">
-          <div class="output-line output-info">Run ボタンを押してコードを実行してください</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </script>
 
   <script type="module" src="/src/main.js"></script>
 </body>
